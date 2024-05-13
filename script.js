@@ -1,57 +1,26 @@
-const textarea = document.querySelector("textarea"),
-voiceList = document.querySelector("select"),
-speechBtn = document.querySelector("button");
-
-let synth = speechSynthesis,
-isSpeaking = true;
-
-voices();
+let synth = speechSynthesis;
+    let availableVoices = document.getElementById("Lang");
+    let change_voice = '';
+    voices();
 
 function voices(){
     for(let voice of synth.getVoices()){
         let selected = voice.name === "Google US English" ? "selected" : "";
         let option = `<option value="${voice.name}" ${selected}>${voice.name} (${voice.lang})</option>`;
-        voiceList.insertAdjacentHTML("beforeend", option);
+        availableVoices.insertAdjacentHTML("beforeend", option);
     }
 }
 
 synth.addEventListener("voiceschanged", voices);
 
-function textToSpeech(text){
-    let utterance = new SpeechSynthesisUtterance(text);
-    for(let voice of synth.getVoices()){
-        if(voice.name === voiceList.value){
-            utterance.voice = voice;
-        }
-    }
-    synth.speak(utterance);
-}
-
-speechBtn.addEventListener("click", e =>{
-    e.preventDefault();
-    if(textarea.value !== ""){
-        if(!synth.speaking){
-            textToSpeech(textarea.value);
-        }
-        if(textarea.value.length > 80){
-            setInterval(()=>{
-                if(!synth.speaking && !isSpeaking){
-                    isSpeaking = true;
-                    speechBtn.innerText = "Convert To Speech";
-                }else{
-                }
-            }, 500);
-            if(isSpeaking){
-                synth.resume();
-                isSpeaking = false;
-                speechBtn.innerText = "Pause Speech";
-            }else{
-                synth.pause();
-                isSpeaking = true;
-                speechBtn.innerText = "Resume Speech";
+    function speak(){    
+        let textToSpeak = document.getElementById("Text").value;
+        var msg = new SpeechSynthesisUtterance();
+        msg.text = textToSpeak;
+        for(let voice of synth.getVoices()){
+            if(voice.name === availableVoices.value){
+                msg.voice = voice;
             }
-        }else{
-            speechBtn.innerText = "Convert To Speech";
         }
+        window.speechSynthesis.speak(msg);
     }
-});

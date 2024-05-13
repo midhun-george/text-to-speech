@@ -1,5 +1,3 @@
-/* Import Google Font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -11,7 +9,7 @@ body{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #5256AD;
+  background: #f37d55;
 }
 ::selection{
   color: #fff;
@@ -91,15 +89,13 @@ form button{
   font-size: 17px;
   cursor: pointer;
   margin-top: 10px;
-  background: #675AFE;
+  background: #ca4e36;
   transition: 0.3s ease;
 }
 form button:hover{
-  background: #4534fe;
+  background: #6d382b;
 }
-.class_footer{
-  
-}
+
 
 @media(max-width: 400px){
   .wrapper{
